@@ -16,9 +16,11 @@ function initFirebase() {
 function highScore(level,time) {
   newRecord=true;
   let ref = DB.ref('scores');
-  score = {id:level, score: time};
+  score = {id:level,score:time};
   ref.push(score);
 }
+
+
 
 function getCurrentHighScores() {
   let ref = DB.ref('scores');
@@ -30,24 +32,45 @@ function GetHighScores(data){
   mediumHS=999;
   hardHS=999;
   
+  let bestEasy=Infinity;
+  let bestMedium=Infinity;
+  let bestHard=Infinity;
+  
+  let ref = DB.ref('scores');
   scores = data.val();
   keys = Object.keys(scores);
   for (let k of keys){    
     if (scores[k].score < easyHS && scores[k].id == 'Easy'){
       easyHS = scores[k].score;
+      bestEasy = scores[k].score;
     }
     if (scores[k].score < mediumHS && scores[k].id == 'Medium'){
       mediumHS = scores[k].score;
+      bestMedium = scores[k].score;
     }
     if (scores[k].score < hardHS && scores[k].id == 'Hard'){
       hardHS = scores[k].score;
+      bestHard = scores[k].score;
     }
   }
+  
+  
+  for (let k of keys){
+    if (scores[k].score > bestEasy && scores[k].id == 'Easy'){
+      ref.child(k).remove();
+    }
+    else if (scores[k].score > bestMedium && scores[k].id == 'Medium'){
+      ref.child(k).remove();
+    }
+    else if (scores[k].score > bestHard && scores[k].id == 'Hard'){
+      ref.child(k).remove();
+    }
+  }
+  
   
 }
 
 function errData(err){
-  //console.log(err);
   easyHS=999;
   mediumHS=999;
   hardHS=999;
