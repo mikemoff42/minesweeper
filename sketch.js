@@ -41,16 +41,17 @@ function draw() {
 function clearAll(){
   let x = mouseX;
   let y = mouseY;
-  if (leftClick && rightClick && x > 0 && x < height && y > 0 && y < height && !squares[currentX][currentY].active){  
+  if (rightClick && x > 0 && x < height && y > 0 && y < height && !squares[currentX][currentY].active){  
     let adj = squares[currentX][currentY].getAdj();
     if (adj){
       for (let i=0;i<adj.length;i+=2){
         clearSquare(adj[i],adj[i+1]);
       }
     }
+    
   }  
-  leftClick=false;
   rightClick=false;
+  
 }
 
 function drawHeading(){
@@ -326,18 +327,6 @@ function mousePressed(){
   if (mouseButton == RIGHT)
     rightClick=true;
 }
-// function doubleClicked(){
-//   let x = mouseX;
-//   let y = mouseY;
-//   if (x > 0 && x < height && y > 0 && y < height && !squares[currentX][currentY].active){  
-//     let adj = squares[currentX][currentY].getAdj();
-//     if (adj){
-//       for (let i=0;i<adj.length;i+=2){
-//         clearSquare(adj[i],adj[i+1]);
-//       }
-//     }
-//   }
-// }
 
 function clearSquare(i,j){
   //squares[i][j].active = false;
