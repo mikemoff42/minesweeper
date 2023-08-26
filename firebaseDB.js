@@ -53,21 +53,26 @@ function GetHighScores(data){
       bestHard = scores[k].score;
     }
   }
-  
-  
-  for (let k of keys){
-    if (scores[k].score > bestEasy && scores[k].id == 'Easy'){
-      ref.child(k).remove();
+  let id, thebest;
+  for (let i=0;i<3;i++){
+    if (i==0) {
+      id='Easy';
+      thebest=bestEasy;
     }
-    else if (scores[k].score > bestMedium && scores[k].id == 'Medium'){
-      ref.child(k).remove();
+    else if (i==1) {
+      id='Medium';
+      thebest=bestMedium;
     }
-    else if (scores[k].score > bestHard && scores[k].id == 'Hard'){
-      ref.child(k).remove();
+    else {
+      id='Hard';
+      thebest=bestHard;
     }
-  }
-  
-  
+    for (let k of keys){
+      if (scores[k].score > thebest && scores[k].id == id){
+        ref.child(k).remove();
+      }
+    }
+  }  
 }
 
 function errData(err){
