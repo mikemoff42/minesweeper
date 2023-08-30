@@ -317,7 +317,7 @@ function mousePressed(){
       for (let i=0;i<rows;i++)
         for (let j=0;j<cols;j++) {
           if (squares[i][j].highlighted && squares[i][j].active)
-            if (squares[i][j].flagged+1 ==3) squares[i][j].flagged = 0;
+            if (squares[i][j].flagged+1 >=3) squares[i][j].flagged = 0;
             else squares[i][j].flagged++;
         }
     }
