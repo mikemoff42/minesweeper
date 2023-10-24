@@ -21,6 +21,7 @@ function setup() {
   initFirebase();
   createCanvas(canvasSize, canvasHeight);
   createReset();
+  setInterval(addTime,1000);
   Easy();
 }
 
@@ -34,8 +35,11 @@ function draw() {
   showAllSquares();
   showHighlighted();
   checkWinner();
-  if (frameCount % 60 == 0 && gameStarted && !gameover) timer++;
   clearAll();
+}
+
+function addTime(){
+  if (gameStarted && !gameover) timer++;
 }
 
 function clearAll(){
